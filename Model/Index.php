@@ -620,12 +620,12 @@ class Index
 
     /**
      * @param array  $aFile
-     * @param        $iMaxSeconds
+     * @param int    $iMaxSeconds
      * @param string $sType
-     * @return void
+     * @return false|void
      * @throws \ReflectionException
      */
-    private function deleteFromFileArray(array $aFile = array(), $iMaxSeconds, string $sType = '')
+    private function deleteFromFileArray(array $aFile = array(), int $iMaxSeconds = 86400, string $sType = '')
     {
         if (false === in_array($sType, array('email','attachment')))
         {
