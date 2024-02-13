@@ -194,6 +194,8 @@ class Index
 			$aMail = json_decode(file_get_contents($this->sSpoolerNewPath . $sFile), true);
 			$oEmail = Email::create($aMail);
 
+            Event::run('email.model.index.spool.sendBefore', $oEmail);
+
             // send eMail
             /** @var DTArrayObject $oSendResponse */
             $oSendResponse = $this->send($oEmail);
@@ -212,14 +214,14 @@ class Index
                 $sMessage = 'move mail to "' . $sStatus . '"';
             }
 
-            Log::write($sMessage, 'mail.log');
+            Event::run('email.model.index.spool.oSendResponse', $oSendResponse);
 
             $bRename = rename(
                 $sOldName,
                 $sNewName
             );
 
-            Log::write('$bRename: ' . (int) $bRename, 'mail.log');
+            Event::run('email.model.index.spool.bRename', $bRename);
 
             $oSpoolResponse = DTArrayObject::create()
                 ->add_aKeyValue(DTKeyValue::create()->set_sKey('bSuccess')->set_sValue($bRename))

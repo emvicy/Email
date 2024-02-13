@@ -268,6 +268,12 @@ Event::RUN('email.model.index.saveToSpooler.done',
 );
 ~~~
 
+`email.model.index.spool.sendBefore`: `\Email\DataType\Email $oEmail`
+
+`email.model.index.spool.oSendResponse`: `\Email\Model\oSendResponse $oSendResponse`
+
+`email.model.index.spool.bRename`: `bool $brename`
+
 `email.model.index.spool`
 ~~~
 Event::RUN('email.model.index.spool',  
