@@ -15,6 +15,7 @@ use App\Controller;
 use Email\DataType\Config;
 use MVC\DataType\DTRequestCurrent;
 use MVC\DataType\DTRoute;
+use MVC\Lock;
 
 class Index extends Controller
 {
@@ -39,19 +40,25 @@ class Index extends Controller
         );
 	}
 
-	/**
-	 * Processes the mails to be sent in the spooler folder
-	 */
+    /**
+     * Processes the mails to be sent in the spooler folder
+     * @return array
+     * @throws \ReflectionException
+     */
 	public function spool()
 	{
+        Lock::create();
 		return $this->oModelEmail->spool();
 	}
-	
-	/**
-	 * Escalation to failed mails
-	 */
+
+    /**
+     * Escalation to failed mails
+     * @return null
+     * @throws \ReflectionException
+     */
 	public function escalate()
 	{
+        Lock::create();
 		return $this->oModelEmail->escalate();
 	}
 
@@ -62,6 +69,7 @@ class Index extends Controller
      */
     public function cleanup()
     {
+        Lock::create();
         return $this->oModelEmail->cleanup();
     }
 
